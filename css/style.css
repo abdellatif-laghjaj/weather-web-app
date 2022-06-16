@@ -14,6 +14,10 @@
   --main-padding: 1.5rem;
   --border-radius: 0.5rem;
   --light-grey: #bfbfbf;
+  --error-color: #ffa1a1;
+  --error-text-color: #910000;
+  --pending-color: #adf8b3;
+  --pending-text-color: #206139;
 }
 
 body {
@@ -56,9 +60,21 @@ body {
 }
 
 .wrapper .input-part .info-text {
-  font-size: 14px;
-  color: var(--text-color);
-  margin-bottom: 10px;
+  font-size: 16px;
+  text-align: center;
+  padding: 12px 10px;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+}
+
+.info-text.error{
+  background-color: var(--error-color);
+  color: var(--error-text-color);
+}
+
+.info-text.pending{
+  background-color: var(--pending-color);
+  color: var(--pending-text-color);
 }
 
 .wrapper .input-part input{
