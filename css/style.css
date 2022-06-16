@@ -55,6 +55,12 @@ body {
   margin: 20px 25px 30px;
 }
 
+.wrapper .input-part .info-text {
+  font-size: 14px;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
 .wrapper .input-part input{
   border-radius: var(--border-radius);
   padding: 10px;
@@ -79,8 +85,19 @@ body {
 }
 
 .wrapper .input-part .separator {
-  margin: 10px 0;
-  border-bottom: 1px solid var(--light-grey);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.wrapper .input-part .separator::after{
+  content: "or";
+  padding: 0 15px;
+  font-size: 19px;
+  color: var(--light-grey);
 }
 
 .wrapper .input-part button{
