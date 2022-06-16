@@ -56,6 +56,7 @@ body {
 }
 
 .wrapper .input-part {
+  display: none;
   margin: 20px 25px 30px;
 }
 
@@ -69,11 +70,13 @@ body {
 }
 
 .info-text.error{
+  display: block;
   background-color: var(--error-color);
   color: var(--error-text-color);
 }
 
 .info-text.pending{
+  display: blo;
   background-color: var(--pending-color);
   color: var(--pending-text-color);
 }
