@@ -251,6 +251,26 @@ header i {
   margin-bottom: 10px;
 }
 
+/* drak mode palette */
+
+.dark-mode {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 50%;
+  padding: 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.dark-mode span{
+  font-size: 20px;
+  cursor: pointer;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 436px) {
   .wrapper {
@@ -258,7 +278,7 @@ header i {
     min-width: 90%;
   }
 
-  .color-palette{
+  .color-palette {
     max-width: 90%;
     min-width: 90%;
   }
