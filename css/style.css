@@ -99,6 +99,7 @@ header i {
   padding: 0 15px;
   border: 1px solid #ccc;
 }
+
 .input-part input:is(:focus, :valid) {
   border: 2px solid var(--primary-color);
 }
@@ -225,7 +226,7 @@ header i {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: var(--main-margin);
+  margin: 12px;
   right: 0;
   background: rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -234,7 +235,7 @@ header i {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 30px;
-  padding: var(--main-padding) 16px;
+  padding: 8px;
   text-align: center;
 }
 
