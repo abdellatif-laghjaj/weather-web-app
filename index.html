@@ -15,7 +15,8 @@
             <ion-icon name="arrow-back-outline"></ion-icon>
             Weather App
         </header>
-
+        
+        <!-- Search Form -->
         <section class="input-part">
             <p class="info-text">
                 Enter a valid city name
@@ -23,6 +24,47 @@
             <input type="text" placeholder="Search for a city" spellcheck="false" required/>
             <div class="separator"></div>
             <button>Location Auto Detect</button>
+        </section>
+
+        <!-- Weather Info -->
+        <section class="weather-part">
+          <!-- <img src="res/cloud.svg" alt="weather icon"> -->
+
+          <!-- temperature -->
+          <div class="temp">
+            <span class="numb">31</span>
+            <span class="deg">°</span>
+          </div>
+          
+          <!-- weather description -->
+          <div class="weather">Broken Ckouds</div>
+          
+          <!-- weather location -->
+          <div class="location">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>United Kingdom</span>
+          </div>
+
+          <div class="bottom-details">
+            <div class="column feels">
+              <ion-icon name="thermometer-outline"></ion-icon>
+              <div class="details">
+                <div class="temp">
+                  <span class="numb">31</span>
+                  <span class="deg">°</span>
+                </div>
+                <p>Feels Like</p>
+              </div>
+            </div>
+
+            <div class="column humidity">
+              <ion-icon name="water-outline"></ion-icon>
+              <div class="details">
+                <span class="numb">31%</span>
+                <p>Humidity</p>
+              </div>
+            </div>
+          </div>
         </section>
     </div>
 
