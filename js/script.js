@@ -125,8 +125,15 @@ const colorBtns = document.querySelectorAll(".theme-color");
 const darkModeBtn = document.querySelector(".dark-mode-btn");
 
 //change theme to dark
+var isDark = false;
 darkModeBtn.addEventListener("click", () => {
-  changeTheme("#000");
+  if(!isDark) {
+    changeTheme("#000");
+    isDark = true;
+  }else{
+    changeTheme(colors[2]);
+    isDark = false;
+  }
 });
 
 //loop through colors array and set each color to a button
