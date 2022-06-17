@@ -37,6 +37,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
   width: 400px;
   border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 .wrapper header {
@@ -150,7 +151,7 @@ body {
   display: flex;
   font-size: 42px;
   font-weight: 500;
-  color: var(--secondary-color);
+  color: var(--text-color);
 }
 
 .weather-part .temp .numb{
@@ -211,6 +212,7 @@ body {
   font-size: 18px;
   font-weight: 500;
   margin-top: -3px;
+  color: var(--text-color);
 }
 
 .details .temp .deg{
