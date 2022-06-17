@@ -12,10 +12,10 @@
   --secondary-color: #8490ff;
   --text-color: #fff;
   --light-gery: #f5f5f5; 
-  --pending-color: #d1ecf1;
-  --pending-text-color: #0c5460;
-  --error-color: #f8d7da;
-  --error-text-color: #721c24;
+  --pending-color: #b7e4ec;
+  --pending-text-color: #0c6047;
+  --error-color: #ffc1c5;
+  --error-text-color: #631920;
 }
 
 body {
