@@ -8,7 +8,7 @@ const wrapper = document.querySelector(".wrapper"),
   arrowBack = wrapper.querySelector("header i");
 
 let api;
-let apiKey = "07334a881c572f9314ab02c71984919b";
+let apiKey = "YOUR_API_KEY_HERE";
 
 inputField.addEventListener("keyup", (e) => {
   // if user pressed enter btn and input value is not empty
