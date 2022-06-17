@@ -98,13 +98,14 @@ header i {
   text-align: center;
   padding: 0 15px;
   border: 1px solid #ccc;
+  background-color: rgb(218, 218, 218);
 }
 
 .input-part input:is(:focus, :valid) {
   border: 2px solid var(--primary-color);
 }
 .input-part input::placeholder {
-  color: #bfbfbf;
+  color: rgb(24, 24, 24) !important;
 }
 .input-part .separator {
   height: 1px;
