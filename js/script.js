@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const wrapper = document.querySelector(".wrapper"),
   inputPart = document.querySelector(".input-part"),
   infoTxt = inputPart.querySelector(".info-txt"),
@@ -11,8 +9,6 @@ const wrapper = document.querySelector(".wrapper"),
 
 let api;
 let apiKey = "07334a881c572f9314ab02c71984919b";
-
-console.log(process.env.API_KEY);
 
 inputField.addEventListener("keyup", (e) => {
   // if user pressed enter btn and input value is not empty
