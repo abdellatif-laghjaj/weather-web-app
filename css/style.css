@@ -18,6 +18,7 @@
   --error-text-color: #910000;
   --pending-color: #adf8b3;
   --pending-text-color: #206139;
+  --input-color: #353434;
 }
 
 body {
@@ -97,7 +98,7 @@ body {
   height: 50px;
   outline: none;
   text-align: center;
-  color: var(--text-color);
+  color: var(--input-color);
 }
 
 .input-part input:is(:focus, :valid) {
