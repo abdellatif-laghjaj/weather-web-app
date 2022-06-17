@@ -9,9 +9,9 @@
 
 :root{
   --primary-color: #495af7;
-  --secondary-color: #0ba5ff;
+  --secondary-color: #8490ff;
   --text-color: #fff;
-  --light-gery: #f5f5f5;
+  --light-gery: #f5f5f5; 
   --pending-color: #ffc107;
   --pending-text-color: #333;
   --error-color: #f44336;
@@ -44,7 +44,7 @@ body {
   display: flex;
   font-size: 21px;
   font-weight: 500;
-  color: var(--primary-color);
+  color: var(--secondary-color);
   padding: 16px 15px;
   align-items: center;
   border-bottom: 1px solid #ccc;
@@ -107,7 +107,6 @@ header i {
   height: 1px;
   width: 100%;
   margin: 25px 0;
-  background: #ccc;
   position: relative;
   display: flex;
   align-items: center;
@@ -118,16 +117,17 @@ header i {
   color: #b3b3b3;
   font-size: 19px;
   padding: 0 15px;
-  background: #fff;
+  border-radius: 20px;
 }
 .input-part button {
   color: #fff;
   cursor: pointer;
   background: var(--primary-color);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   transition: 0.3s ease;
 }
 .input-part button:hover {
-  background: #1d9ffc;
+  background: var(--secondary-color);
 }
 
 .wrapper .weather-part {
