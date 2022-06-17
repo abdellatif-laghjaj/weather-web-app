@@ -201,5 +201,25 @@ body {
   color: var(--primary-color);
 }
 
+.column.humidity{
+  border-left: 1px solid var(--light-grey);
+}
 
+.details .temp, .humidity span{
+  font-size: 18px;
+  font-weight: 500;
+}
 
+.details .temp .deg{
+  font-size: 19px;
+  margin: 0;
+  padding: 0 2px 1px;
+}
+
+.details p{
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
