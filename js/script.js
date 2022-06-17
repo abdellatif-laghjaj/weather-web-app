@@ -121,18 +121,6 @@ const colors = [
   "hsl(180, 100%, 25%)",
 ];
 
-const secondaryColors = [
-  "hsl(365, 80%, 50%)",
-  "hsl(130, 80%, 50%)",
-  "hsl(220, 80%, 50%)",
-  "hsl(247, 66%, 55%)",
-  "hsl(36, 80%, 50%)",
-  "hsl(54, 90%, 51%)",
-  "hsl(300, 100%, 65%)",
-  "hsl(500, 100%, 25%)",
-  "hsl(200, 100%, 25%)",
-];
-
 const colorBtns = document.querySelectorAll(".theme-color");
 
 //loop through colors array and set each color to a button
@@ -142,11 +130,11 @@ for (let i = 0; i < colorBtns.length; i++) {
 
 colorBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
-    changeTheme(btn.style.backgroundColor, secondaryColorIndex);
+    changeTheme(btn.style.backgroundColor);
   });
 });
 
-function changeTheme(color, secondaryColorIndex) {
+function changeTheme(color) {
   document.documentElement.style.setProperty("--primary-color", color);
   saveTheme(color);
 }

@@ -130,7 +130,7 @@ header i {
   transition: 0.3s ease;
 }
 .input-part button:hover {
-  background: var(--secondary-color);
+  transform: scale(1.03);
 }
 
 .wrapper .weather-part {
