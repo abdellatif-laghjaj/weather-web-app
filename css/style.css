@@ -85,7 +85,7 @@ body {
 }
 
 .info-text.pending{
-  display: blo;
+  display: block;
   background-color: var(--pending-color);
   color: var(--pending-text-color);
 }
