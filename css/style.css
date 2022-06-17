@@ -257,6 +257,16 @@ header i {
     max-width: 90%;
     min-width: 90%;
   }
+
+  .color-palette{
+    max-width: 90%;
+    min-width: 90%;
+  }
+
+  .color-palette .theme-color {
+    width: 22px;
+    height: 22px;
+  }
 }
 
 @media only screen and (max-width: 636px) {

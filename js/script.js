@@ -142,8 +142,7 @@ for (let i = 0; i < colorBtns.length; i++) {
 
 colorBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
-    let secondaryColorIndex = 0;
-    changeTheme(btn.style.backgroundColor);
+    changeTheme(btn.style.backgroundColor, secondaryColorIndex);
   });
 });
 
