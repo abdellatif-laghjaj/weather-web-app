@@ -51,14 +51,21 @@ body {
 }
 
 .wrapper header ion-icon {
-  font-size: 30px;
+  font-size: 0px;
   margin-right: 8px;
   cursor: pointer;
 }
 
+.wrapper.active header ion-icon{
+  font-size: 30px;
+}
+
 .wrapper .input-part {
-  display: none;
   margin: 20px 25px 30px;
+}
+
+.wrapper.active .input-part{
+  display: none;
 }
 
 .wrapper .input-part .info-text {
@@ -136,11 +143,15 @@ body {
 /* ######## WEATHER PART ######### */
 
 .wrapper .weather-part{
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin: 30px 0 0;
+}
+
+.wrapper.active .weather-part{
+  display: flex;
 }
 
 .weather-part img{
