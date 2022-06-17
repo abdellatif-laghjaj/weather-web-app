@@ -8,8 +8,10 @@
 }
 
 :root{
-  --primary-color: #f5f5f5;
-  --text-color: #333;
+  --primary-color: #495af7;
+  --secondary-color: #0ba5ff;
+  --text-color: #fff;
+  --light-gery: #f5f5f5;
   --pending-color: #ffc107;
   --pending-text-color: #333;
   --error-color: #f44336;
@@ -21,23 +23,28 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #43affc;
+  background: var(--primary-color);
+  color: var(--text-color);
 }
 ::selection {
   color: #fff;
-  background: #43affc;
+  background: var(--primary-color);
 }
 .wrapper {
   width: 400px;
   background: #fff;
-  border-radius: 7px;
-  box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 7px;background: rgba( 255, 255, 255, 0.1 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 3px );
+  -webkit-backdrop-filter: blur( 3px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .wrapper header {
   display: flex;
   font-size: 21px;
   font-weight: 500;
-  color: #43affc;
+  color: var(--primary-color);
   padding: 16px 15px;
   align-items: center;
   border-bottom: 1px solid #ccc;
@@ -91,7 +98,7 @@ header i {
   border: 1px solid #ccc;
 }
 .input-part input:is(:focus, :valid) {
-  border: 2px solid #43affc;
+  border: 2px solid var(--primary-color);
 }
 .input-part input::placeholder {
   color: #bfbfbf;
@@ -116,7 +123,7 @@ header i {
 .input-part button {
   color: #fff;
   cursor: pointer;
-  background: #43affc;
+  background: var(--primary-color);
   transition: 0.3s ease;
 }
 .input-part button:hover {
@@ -180,7 +187,7 @@ header i {
   justify-content: center;
 }
 .column i {
-  color: #5dbbff;
+  color: var(--secondary-color);
   font-size: 40px;
 }
 .column.humidity {
