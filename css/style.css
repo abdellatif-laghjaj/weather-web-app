@@ -8,7 +8,7 @@
 }
 
 :root {
-  --primary-color: #5e61ff;
+  --primary-color: #353434;
   --secondary-color: #c1c2ff;
   --text-color: #333;
   --main-padding: 1.5rem;
@@ -179,5 +179,27 @@ body {
 
 .location ion-icon{
   font-size: 21px;
-  margin-right: 8px;
+  margin-right: 6px;
 }
+.weather-part .bottom-details{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid var(--light-grey);
+}
+
+.bottom-details .column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.column ion-icon{
+  font-size: 30px;
+  color: var(--primary-color);
+}
+
+
+
