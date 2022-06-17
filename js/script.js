@@ -135,7 +135,7 @@ colorBtns.forEach((btn) => {
 });
 
 function changeTheme(color) {
-  document.documentElement.style.setProperty("--bg-color", color);
+  document.documentElement.style.setProperty("--primary-color", color);
   saveTheme(color);
 }
 
