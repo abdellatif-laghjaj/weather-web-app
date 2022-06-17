@@ -131,7 +131,7 @@ darkModeBtn.addEventListener("click", () => {
     changeTheme("#000");
     isDark = true;
   }else{
-    changeTheme(colors[2]);
+    changeTheme(colors[3]);
     isDark = false;
   }
 });
