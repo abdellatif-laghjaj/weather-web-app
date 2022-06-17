@@ -13,18 +13,20 @@
 
 /* Boring button styles */
 a.button {
-  /* Frame */
   display: inline-block;
-  padding: 20px 28px;
-  border-radius: 50px;
+  border-radius: 50%;
   box-sizing: border-box;
-
-  /* Style */
   border: none;
   background: var(--button-background);
   color: var(--button-color);
-  font-size: 24px;
+  padding: 10px 18px;
+  font-size: 30px;
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 a.button:active {
@@ -33,11 +35,12 @@ a.button:active {
 
 /* Dropdown styles */
 .dropdown {
-  position: relative;
+  position: absolute;
   padding: 0;
   margin-right: 1em;
-
   border: none;
+  top: 16px;
+  right: 16px;
 }
 
 .dropdown summary {
@@ -67,13 +70,18 @@ a.button:active {
   padding: 20px 0;
   width: var(--dropdown-width);
   left: 50%;
-  margin-left: calc((var(--dropdown-width) / 2) * -1);
+  margin-left: calc((var(--dropdown-width)) * -1);
   box-sizing: border-box;
   z-index: 2;
-
   background: var(--dropdown-background);
   border-radius: 6px;
   list-style: none;
+  background: rgba( 255, 255, 255, 0.1 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 3px );
+-webkit-backdrop-filter: blur( 3px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .dropdown ul li {
