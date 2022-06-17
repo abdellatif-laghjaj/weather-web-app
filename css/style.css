@@ -12,10 +12,10 @@
   --secondary-color: #8490ff;
   --text-color: #fff;
   --light-gery: #f5f5f5; 
-  --pending-color: #ffc107;
-  --pending-text-color: #333;
-  --error-color: #f44336;
-  --error-text-color: #fff;
+  --pending-color: #d1ecf1;
+  --pending-text-color: #0c5460;
+  --error-color: #f8d7da;
+  --error-text-color: #721c24;
 }
 
 body {
@@ -73,15 +73,15 @@ header i {
   margin-bottom: 15px;
 }
 .input-part .info-txt.error {
-  color: #721c24;
+  color: var(--error-text-color);
   display: block;
-  background: #f8d7da;
+  background: var(--error-color);
   border: 1px solid #f5c6cb;
 }
 .input-part .info-txt.pending {
-  color: #0c5460;
+  color: var(--pending-text-color);
   display: block;
-  background: #d1ecf1;
+  background: var(--pending-color);
   border: 1px solid #bee5eb;
 }
 .input-part :where(input, button) {
@@ -114,13 +114,13 @@ header i {
 }
 .separator::before {
   content: "or";
-  color: #b3b3b3;
+  color: var(--light-gery);
   font-size: 19px;
   padding: 0 15px;
   border-radius: 20px;
 }
 .input-part button {
-  color: #fff;
+  color: var(--text-color);
   cursor: pointer;
   background: var(--primary-color);
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
