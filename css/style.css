@@ -272,6 +272,33 @@ header i {
   cursor: pointer;
 }
 
+/* COPYRIGHT */
+
+.copyright{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--main-padding);
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.copyright p a{
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 436px) {
   .wrapper {
