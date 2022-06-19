@@ -98,7 +98,7 @@ header i {
   text-align: center;
   padding: 0 15px;
   border: 1px solid #ccc;
-  background-color: rgb(218, 218, 218);
+  background-color: #fff;
 }
 
 .input-part input:is(:focus, :valid) {
