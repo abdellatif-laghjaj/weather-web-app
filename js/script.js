@@ -4,113 +4,281 @@ const wrapper = document.querySelector(".wrapper"),
   inputField = inputPart.querySelector("input"),
   locationBtn = inputPart.querySelector("button"),
   weatherPart = wrapper.querySelector(".weather-part"),
+  forecastSection = wrapper.querySelector(".forecast"),
+  forecastDetails = forecastSection.querySelector(".forecast-details"),
   wIcon = weatherPart.querySelector("img"),
   arrowBack = wrapper.querySelector("header i");
 
 let api;
-
-//PLEASE PUT YOUR API KEY HERE
 let apiKey = "b190a0605344cc4f3af08d0dd473dd25";
 
+const weatherChartCtx = document.getElementById("weatherChart").getContext("2d");
+let weatherChart;
+
+// Function to create or update weather chart
+function createWeatherChart(labels, data) {
+  if (weatherChart) {
+    weatherChart.destroy();
+  }
+
+  weatherChart = new Chart(weatherChartCtx, {
+    type: "line", // Change chart type as needed (line, bar, etc.)
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Temperature (°C)",
+        data: data,
+        backgroundColor: "rgba(54, 162, 235, 0.6)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
+// Event listeners
 inputField.addEventListener("keyup", (e) => {
-  // if user pressed enter btn and input value is not empty
-  if (e.key == "Enter" && inputField.value != "") {
-    requestApi(inputField.value);
+  if (e.key === "Enter" && inputField.value.trim() !== "") {
+    requestApi(inputField.value.trim());
   }
 });
 
 locationBtn.addEventListener("click", () => {
   if (navigator.geolocation) {
-    // if browser support geolocation api
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   } else {
-    alert("Your browser not support geolocation api");
+    alert("Your browser does not support geolocation API.");
   }
 });
 
+// Function to request weather data
 function requestApi(city) {
   api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   fetchData();
 }
 
+// Function to handle geolocation success
 function onSuccess(position) {
-  const { latitude, longitude } = position.coords; // getting lat and lon of the user device from coords obj
+  const { latitude, longitude } = position.coords;
   api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   fetchData();
 }
 
+// Function to handle geolocation error
 function onError(error) {
-  // if any error occur while getting user location then we'll show it in infoText
   infoTxt.innerText = error.message;
   infoTxt.classList.add("error");
+  clearWeatherData();
 }
 
+// Function to fetch weather data from API
 function fetchData() {
-  infoTxt.innerText = "Getting weather details...";
+  infoTxt.innerText = "Fetching weather details...";
   infoTxt.classList.add("pending");
-  // getting api response and returning it with parsing into js obj and in another
-  // then function calling weatherDetails function with passing api result as an argument
+
   fetch(api)
     .then((res) => res.json())
-    .then((result) => weatherDetails(result))
+    .then((result) => {
+      if (result.cod && result.cod === "404") {
+        infoTxt.innerText = `${inputField.value} is not a valid city name`;
+        infoTxt.classList.replace("pending", "error");
+        clearWeatherData();
+      } else {
+        clearWeatherData(); // Clear previous weather and forecast data
+        weatherDetails(result);
+        fetchForecast(result.coord.lat, result.coord.lon); // Fetch 7-day forecast
+        fetchHourlyForecast(result.coord.lat, result.coord.lon); // Fetch hourly forecast
+      }
+    })
     .catch(() => {
       infoTxt.innerText = "Something went wrong";
       infoTxt.classList.replace("pending", "error");
+      clearWeatherData();
     });
 }
 
+
+
+// Function to display weather details
 function weatherDetails(info) {
-  if (info.cod == "404") {
-    // if user entered city name isn't valid
-    infoTxt.classList.replace("pending", "error");
-    infoTxt.innerText = `${inputField.value} isn't a valid city name`;
-  } else {
-    //getting required properties value from the whole weather information
-    const city = info.name;
-    const country = info.sys.country;
-    const { description, id } = info.weather[0];
-    const { temp, feels_like, humidity } = info.main;
+  const { name: city, sys: { country }, weather: [{ description, id }], main: { temp, feels_like, humidity }, wind: { speed }, dt } = info;
+  
+  const weatherDate = new Date(dt * 1000).toLocaleString('en', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  });
 
-    // using custom weather icon according to the id which api gives to us
-    if (id == 800) {
-      wIcon.src = "icons/clear.svg";
-    } else if (id >= 200 && id <= 232) {
-      wIcon.src = "icons/storm.svg";
-    } else if (id >= 600 && id <= 622) {
-      wIcon.src = "icons/snow.svg";
-    } else if (id >= 701 && id <= 781) {
-      wIcon.src = "icons/haze.svg";
-    } else if (id >= 801 && id <= 804) {
-      wIcon.src = "icons/cloud.svg";
-    } else if ((id >= 500 && id <= 531) || (id >= 300 && id <= 321)) {
-      wIcon.src = "icons/rain.svg";
-    }
+  wIcon.src = getWeatherIcon(id);
+  weatherPart.querySelector(".temp .numb").innerText = Math.round(temp);
+  weatherPart.querySelector(".weather").innerText = description;
+  weatherPart.querySelector(".location span").innerText = `${city}, ${country}`;
+  weatherPart.querySelector(".temp .numb-2").innerText = Math.round(feels_like);
+  weatherPart.querySelector(".humidity span").innerText = `${humidity}%`;
+  weatherPart.querySelector(".wind span").innerText = `${speed} m/s`;
+  weatherPart.querySelector(".date-time").innerText = weatherDate;
 
-    //passing a particular weather info to a particular element
-    weatherPart.querySelector(".temp .numb").innerText = Math.floor(temp);
-    weatherPart.querySelector(".weather").innerText = description;
-    weatherPart.querySelector(
-      ".location span"
-    ).innerText = `${city}, ${country}`;
-    weatherPart.querySelector(".temp .numb-2").innerText =
-      Math.floor(feels_like);
-    weatherPart.querySelector(".humidity span").innerText = `${humidity}%`;
-    infoTxt.classList.remove("pending", "error");
-    infoTxt.innerText = "";
-    inputField.value = "";
-    wrapper.classList.add("active");
+  infoTxt.classList.remove("pending", "error");
+  infoTxt.innerText = "";
+  inputField.value = "";
+  wrapper.classList.add("active");
+}
+
+// Function to fetch daily forecast data
+function fetchForecast(latitude, longitude) {
+  const forecastApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly&units=metric&appid=${apiKey}`;
+  
+  fetch(forecastApi)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.cod && data.cod === "404") {
+        infoTxt.innerText = "Forecast data not available";
+        infoTxt.classList.replace("pending", "error");
+        clearForecast();
+      } else {
+        updateForecast(data.daily.slice(1, 8)); // Update forecast for next 7 days
+      }
+    })
+    .catch(() => {
+      infoTxt.innerText = "Forecast data not available";
+      infoTxt.classList.replace("pending", "error");
+      clearForecast();
+    });
+}
+
+
+// Function to fetch hourly forecast data
+function fetchHourlyForecast(latitude, longitude) {
+  const hourlyForecastApi = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,daily,minutely&units=metric&appid=${apiKey}`;
+  
+  fetch(hourlyForecastApi)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.cod && data.cod === "404") {
+        infoTxt.innerText = "Hourly forecast data not available";
+        infoTxt.classList.replace("pending", "error");
+        clearHourlyForecast();
+      } else {
+        updateHourlyForecast(data.hourly.slice(0, 24)); // Update hourly forecast for next 24 hours
+      }
+    })
+    .catch(() => {
+      infoTxt.innerText = "Hourly forecast data not available";
+      infoTxt.classList.replace("pending", "error");
+      clearHourlyForecast();
+    });
+}
+
+// Function to update daily forecast
+function updateForecast(dailyData) {
+  forecastDetails.innerHTML = ""; // Clear previous forecast details
+
+  dailyData.forEach((day) => {
+    const { dt, weather: [{ description, id }], temp: { max, min } } = day;
+    const dayOfWeek = new Date(dt * 1000).toLocaleDateString('en', { weekday: 'long' });
+    
+    const forecastCard = document.createElement("div");
+    forecastCard.classList.add("forecast-card");
+    forecastCard.innerHTML = `
+      <div class="forecast-day">${dayOfWeek}</div>
+      <img src="${getWeatherIcon(id)}" alt="Weather Icon" />
+      <div class="forecast-temp">
+        <span class="max-temp">${Math.round(max)}°C</span> / 
+        <span class="min-temp">${Math.round(min)}°C</span>
+      </div>
+      <div class="forecast-desc">${description}</div>
+    `;
+    forecastDetails.appendChild(forecastCard);
+  });
+}
+
+// Function to update hourly forecast
+function updateHourlyForecast(hourlyData) {
+  const labels = [];
+  const data = [];
+
+  hourlyData.forEach((hour) => {
+    const { dt, temp } = hour;
+    const hourOfDay = new Date(dt * 1000).toLocaleTimeString('en', { hour: 'numeric', hour12: true });
+    labels.push(hourOfDay);
+    data.push(temp);
+  });
+
+  createWeatherChart(labels, data); // Create or update hourly weather chart
+}
+
+// Function to clear weather data
+function clearWeatherData() {
+  wIcon.src = "";
+  weatherPart.querySelector(".temp .numb").innerText = "";
+  weatherPart.querySelector(".weather").innerText = "";
+  weatherPart.querySelector(".location span").innerText = "";
+  weatherPart.querySelector(".temp .numb-2").innerText = "";
+  weatherPart.querySelector(".humidity span").innerText = "";
+  weatherPart.querySelector(".wind span").innerText = "";
+  weatherPart.querySelector(".date-time").innerText = "";
+  infoTxt.innerText = "";
+  forecastSection.style.display = "block"; // Ensure forecast section is visible
+  clearForecast(); // Clear previous forecast data
+  clearHourlyForecast(); // Clear previous hourly forecast data
+}
+
+
+// Function to clear forecast data
+function clearForecast() {
+  forecastDetails.innerHTML = ""; // Clear daily forecast details
+}
+
+// Function to clear hourly forecast data
+function clearHourlyForecast() {
+  if (weatherChart) {
+    weatherChart.destroy();
   }
 }
 
+// Function to get weather icon based on weather id
+function getWeatherIcon(weatherId) {
+  if (weatherId === 800) {
+    return "icons/clear.svg";
+  } else if (weatherId >= 200 && weatherId <= 232) {
+    return "icons/storm.svg";
+  } else if (weatherId >= 600 && weatherId <= 622) {
+    return "icons/snow.svg";
+  } else if (weatherId >= 701 && weatherId <= 781) {
+    return "icons/haze.svg";
+  } else if (weatherId >= 801 && weatherId <= 804) {
+    return "icons/cloud.svg";
+  } else if ((weatherId >= 500 && weatherId <= 531) || (weatherId >= 300 && weatherId <= 321)) {
+    return "icons/rain.svg";
+  } else {
+    return "icons/unknown.svg";
+  }
+}
+
+// Event listener for back button
 arrowBack.addEventListener("click", () => {
   wrapper.classList.remove("active");
+  clearWeatherData();
 });
 
-//change color theme
-//get the theme from local storage
-getTheme();
-
-//color palette
+// Change Color Theme
+var isDark = false;
 const colors = [
   "hsl(345, 80%, 50%)",
   "hsl(100, 80%, 50%)",
@@ -122,28 +290,16 @@ const colors = [
   "hsl(480, 100%, 25%)",
   "hsl(180, 100%, 25%)",
 ];
-
 const colorBtns = document.querySelectorAll(".theme-color");
 const darkModeBtn = document.querySelector(".dark-mode-btn");
 
-//change theme to dark
-var isDark = false;
 darkModeBtn.addEventListener("click", () => {
-  if(!isDark) {
-    changeTheme("#000");
-    isDark = true;
-  }else{
-    changeTheme(colors[3]);
-    isDark = false;
-  }
+  isDark = !isDark;
+  changeTheme(isDark ? "#000" : colors[3]);
 });
 
-//loop through colors array and set each color to a button
-for (let i = 0; i < colorBtns.length; i++) {
-  colorBtns[i].style.backgroundColor = colors[i];
-}
-
-colorBtns.forEach((btn) => {
+colorBtns.forEach((btn, index) => {
+  btn.style.backgroundColor = colors[index];
   btn.addEventListener("click", () => {
     changeTheme(btn.style.backgroundColor);
   });
@@ -154,7 +310,10 @@ function changeTheme(color) {
   saveTheme(color);
 }
 
-//get the theme from local storage
+function saveTheme(color) {
+  localStorage.setItem("theme", color);
+}
+
 function getTheme() {
   const theme = localStorage.getItem("theme");
   if (theme) {
@@ -162,7 +321,4 @@ function getTheme() {
   }
 }
 
-//save the theme to local storage
-function saveTheme(color) {
-  localStorage.setItem("theme", color);
-}
+getTheme(); // Initialize theme on page load

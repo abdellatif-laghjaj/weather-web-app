@@ -1,98 +1,140 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - youtube.com/codingnepal -->
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="css/style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Linking BoxIcon for Icon -->
-    <link
-      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-
-    <!-- favicon -->
-    <link rel="icon" href="icons/favicon.svg" />
-    <title>Weather Web App</title>
-  </head>
-  <body>
-    <!-- dark mode toggle -->
-    <div class="dark-mode">
-      <span class="dark-mode-btn">
-        <i class="bx bx-moon"></i>
-      </span>
-    </div>
-
-    <!--=========== COLOR PICKER ===========-->
-
-    <div class="color-palette">
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-      <span class="theme-color"></span>
-    </div>
-
-    <!-- main content -->
-    <div class="wrapper">
-      <header><i class="bx bx-left-arrow-alt"></i>Weather App</header>
-      <section class="input-part">
-        <p class="info-txt"></p>
-        <div class="content">
-          <input
-            type="text"
-            spellcheck="false"
-            placeholder="Enter City Name"
-            required
-          />
-          <div class="separator"></div>
-          <button>Location auto-detect</button>
-        </div>
-      </section>
-      <section class="weather-part">
-        <img src="" alt="Weather Icon" />
-        <div class="temp">
-          <span class="numb">_</span>
-          <span class="deg">°</span>C
-        </div>
-        <div class="weather">_ _</div>
-        <div class="location">
-          <i class="bx bx-map"></i>
-          <span>_, _</span>
-        </div>
-        <div class="bottom-details">
-          <div class="column feels">
-            <i class="bx bxs-thermometer"></i>
-            <div class="details">
-              <div class="temp">
-                <span class="numb-2">_</span>
-                <span class="deg">°</span>C
-              </div>
-              <p>Feels like</p>
-            </div>
-          </div>
-          <div class="column humidity">
-            <i class="bx bxs-droplet-half"></i>
-            <div class="details">
-              <span>_</span>
-              <p>Humidity</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    
-    <section class="copyright">
-      <p>
-        Made with ❤️ by <a href="https://github.com/abdellatif-laghjaj" target="_blank">Abdellatif Laghjaj</a>
-      </p>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Linking BoxIcon for Icon -->
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+  <!-- Favicon -->
+  <link rel="icon" href="icons/favicon.svg" />
+  <title>Weather Web App</title>
+</head>
+<body>
+  <!-- Main content -->
+  <div class="wrapper">
+    <div class="container">
+    <h2>Developed by Alex</h2>
+  </div>
+    <header>
+      <i class="bx bx-left-arrow-alt" id="backIcon"></i>Weather App
+    </header>
+    <section class="input-part">
+      <p class="info-txt"></p>
+      <div class="content">
+        <input
+          type="text"
+          spellcheck="false"
+          placeholder="Enter City Name"
+          required
+        />
+        <div class="separator"></div>
+        <button>Location auto-detect</button>
+      </div>
     </section>
-    <!--=========== SCRIPTS ===========-->
-    <script src="js/script.js"></script>
-    <script src="js/api_key.js"></script>
-  </body>
+    <section class="weather-part">
+      <img src="" alt="Weather Icon" />
+      <div class="temp">
+        <span class="numb">_</span>
+        <span class="deg">°</span>C
+      </div>
+      <div class="weather">_ _</div>
+      <div class="location">
+        <i class="bx bx-map"></i>
+        <span>_, _</span>
+      </div>
+      <div class="bottom-details">
+        <div class="column feels">
+          <i class="bx bxs-thermometer"></i>
+          <div class="details">
+            <div class="temp">
+              <span class="numb-2">_</span>
+              <span class="deg">°</span>C
+            </div>
+            <p>Feels like</p>
+          </div>
+        </div>
+        <div class="column humidity">
+          <i class="bx bxs-droplet-half"></i>
+          <div class="details">
+            <span>_</span>
+            <p>Humidity</p>
+          </div>
+        </div>
+        <div class="column wind">
+          <i class="bx bx-wind"></i>
+          <div class="details">
+            <span>_</span>
+            <p>Wind Speed</p>
+          </div>
+        </div>
+        <div class="column date-time">
+          <i class="bx bx-time"></i>
+          <div class="details">
+            <span>_</span>
+            <p>Date & Time</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Canvas for Weather Chart -->
+  
+
+    <!-- Forecast for Next 7 Days -->
+    <section class="forecast" hidden>
+      <section class="charts" id="chartSection">
+        <canvas id="weatherChart"></canvas>
+      </section>
+      <div class="forecast-details"></div>
+    </section>
+  </div>
+  <!-- Dark mode toggle -->
+  <div class="dark-mode">
+    <span class="dark-mode-btn">
+      <i class="bx bx-moon"></i>
+    </span>
+  </div>
+  <!-- Color picker -->
+  <div class="color-palette">
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+    <span class="theme-color"></span>
+  </div>
+
+  
+
+  <!-- Scripts -->
+  <script src="js/script.js"></script>
+  <script>
+    // Get references to DOM elements
+    const detectBtn = document.querySelector('.input-part button');
+    const backIcon = document.getElementById('backIcon');
+    
+    // Add click event listener to detectBtn
+    detectBtn.addEventListener('click', () => {
+      // Toggle visibility of forecastSection
+      const forecastSection = document.querySelector('.forecast');
+      forecastSection.removeAttribute('hidden');
+      
+      // Call function to update chart (if needed)
+      updateChart(); // Replace with your chart update function
+    });
+    
+    // Add click event listener to backIcon
+    backIcon.addEventListener('click', () => {
+      // Reload the page
+      location.reload();
+    });
+  </script>
+  
+</body>
 </html>
